@@ -309,6 +309,20 @@ extern "C" {
     x = clip1m1f(x);
     return x - c * (x*x*x);
   }
+  
+  /**
+   * Soft clip but with parametric threshold
+   *
+   * @param   c  Coefficient in [0, 1/3].
+   * @param   t  Clipping threshold in in [0, 1].
+   * @param   x  Value in (-inf, +inf).
+   * @return     Clipped value in [-(t-c), (t-c)].
+   */
+  __fast_inline float fx_softclipf_thres(const float c, const float t, float x)
+  {
+    x = clipminmaxf(-t, x ,t);
+    return x - c * (x*x*x);
+  }
 
 #define k_cubicsat_size_exp  (7)
 #define k_cubicsat_size      (1U<<k_cubicsat_size_exp)
